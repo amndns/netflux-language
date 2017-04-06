@@ -1,13 +1,9 @@
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import socketserver
 
-PORT = 3000
+PORT = 8000
 
-Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-
-httpd = SocketServer.TCPServer(("", PORT), Handler)
-
-print "serving at port", PORT
+Handler = http.server.SimpleHTTPRequestHandler
 
 target = open('index.html', 'w+')
 value = "HELLO, SERVER"
@@ -15,4 +11,6 @@ html = "<html><head></head><body><h1>" + value +"</h1></body></html>"
 target.write(html)
 target.close()
 
-httpd.serve_forever()
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
