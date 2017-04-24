@@ -299,16 +299,16 @@ state 15
 
     MULTIPLY        reduce using rule 5 (expression -> expression POWER expression .)
     DIVIDE          reduce using rule 5 (expression -> expression POWER expression .)
-    MODULUS         reduce using rule 5 (expression -> expression POWER expression .)
     PLUS            reduce using rule 5 (expression -> expression POWER expression .)
     MINUS           reduce using rule 5 (expression -> expression POWER expression .)
     $end            reduce using rule 5 (expression -> expression POWER expression .)
     POWER           shift and go to state 8
+    MODULUS         shift and go to state 11
 
   ! POWER           [ reduce using rule 5 (expression -> expression POWER expression .) ]
+  ! MODULUS         [ reduce using rule 5 (expression -> expression POWER expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
-  ! MODULUS         [ shift and go to state 11 ]
   ! PLUS            [ shift and go to state 12 ]
   ! MINUS           [ shift and go to state 13 ]
 
@@ -338,16 +338,16 @@ state 17
 
     MULTIPLY        reduce using rule 6 (expression -> expression MULTIPLY expression .)
     DIVIDE          reduce using rule 6 (expression -> expression MULTIPLY expression .)
-    MODULUS         reduce using rule 6 (expression -> expression MULTIPLY expression .)
     PLUS            reduce using rule 6 (expression -> expression MULTIPLY expression .)
     MINUS           reduce using rule 6 (expression -> expression MULTIPLY expression .)
     $end            reduce using rule 6 (expression -> expression MULTIPLY expression .)
     POWER           shift and go to state 8
+    MODULUS         shift and go to state 11
 
   ! POWER           [ reduce using rule 6 (expression -> expression MULTIPLY expression .) ]
+  ! MODULUS         [ reduce using rule 6 (expression -> expression MULTIPLY expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
-  ! MODULUS         [ shift and go to state 11 ]
   ! PLUS            [ shift and go to state 12 ]
   ! MINUS           [ shift and go to state 13 ]
 
@@ -364,16 +364,16 @@ state 18
 
     MULTIPLY        reduce using rule 7 (expression -> expression DIVIDE expression .)
     DIVIDE          reduce using rule 7 (expression -> expression DIVIDE expression .)
-    MODULUS         reduce using rule 7 (expression -> expression DIVIDE expression .)
     PLUS            reduce using rule 7 (expression -> expression DIVIDE expression .)
     MINUS           reduce using rule 7 (expression -> expression DIVIDE expression .)
     $end            reduce using rule 7 (expression -> expression DIVIDE expression .)
     POWER           shift and go to state 8
+    MODULUS         shift and go to state 11
 
   ! POWER           [ reduce using rule 7 (expression -> expression DIVIDE expression .) ]
+  ! MODULUS         [ reduce using rule 7 (expression -> expression DIVIDE expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
-  ! MODULUS         [ shift and go to state 11 ]
   ! PLUS            [ shift and go to state 12 ]
   ! MINUS           [ shift and go to state 13 ]
 
@@ -390,16 +390,16 @@ state 19
 
     MULTIPLY        reduce using rule 8 (expression -> expression MODULUS expression .)
     DIVIDE          reduce using rule 8 (expression -> expression MODULUS expression .)
-    MODULUS         reduce using rule 8 (expression -> expression MODULUS expression .)
     PLUS            reduce using rule 8 (expression -> expression MODULUS expression .)
     MINUS           reduce using rule 8 (expression -> expression MODULUS expression .)
     $end            reduce using rule 8 (expression -> expression MODULUS expression .)
     POWER           shift and go to state 8
+    MODULUS         shift and go to state 11
 
   ! POWER           [ reduce using rule 8 (expression -> expression MODULUS expression .) ]
+  ! MODULUS         [ reduce using rule 8 (expression -> expression MODULUS expression .) ]
   ! MULTIPLY        [ shift and go to state 9 ]
   ! DIVIDE          [ shift and go to state 10 ]
-  ! MODULUS         [ shift and go to state 11 ]
   ! PLUS            [ shift and go to state 12 ]
   ! MINUS           [ shift and go to state 13 ]
 

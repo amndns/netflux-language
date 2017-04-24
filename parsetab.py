@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDEMODULUSrightPOWERINT REAL STRING NAME PLUS MINUS DIVIDE MULTIPLY POWER MODULUS EQUALS\n    calc : expression\n         | var_assign\n         | empty\n    \n    var_assign : NAME EQUALS expression\n    \n    expression : expression POWER expression\n               | expression MULTIPLY expression\n               | expression DIVIDE expression\n               | expression MODULUS expression\n               | expression PLUS expression\n               | expression MINUS expression\n    \n    expression : INT\n               | REAL\n    \n    expression : NAME\n    \n    empty :\n    '
+_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDErightPOWERMODULUSINT REAL STRING NAME PLUS MINUS DIVIDE MULTIPLY POWER MODULUS EQUALS\n    calc : expression\n         | var_assign\n         | empty\n    \n    var_assign : NAME EQUALS expression\n    \n    expression : expression POWER expression\n               | expression MULTIPLY expression\n               | expression DIVIDE expression\n               | expression MODULUS expression\n               | expression PLUS expression\n               | expression MINUS expression\n    \n    expression : INT\n               | REAL\n    \n    expression : NAME\n    \n    empty :\n    '
     
-_lr_action_items = {'INT':([0,8,9,10,11,12,13,14,],[5,5,5,5,5,5,5,5,]),'REAL':([0,8,9,10,11,12,13,14,],[6,6,6,6,6,6,6,6,]),'NAME':([0,8,9,10,11,12,13,14,],[7,16,16,16,16,16,16,16,]),'$end':([0,1,2,3,4,5,6,7,15,16,17,18,19,20,21,22,],[-14,0,-1,-2,-3,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,-4,]),'POWER':([2,5,6,7,15,16,17,18,19,20,21,22,],[8,-11,-12,-13,8,-13,8,8,8,8,8,8,]),'MULTIPLY':([2,5,6,7,15,16,17,18,19,20,21,22,],[9,-11,-12,-13,-5,-13,-6,-7,-8,9,9,9,]),'DIVIDE':([2,5,6,7,15,16,17,18,19,20,21,22,],[10,-11,-12,-13,-5,-13,-6,-7,-8,10,10,10,]),'MODULUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[11,-11,-12,-13,-5,-13,-6,-7,-8,11,11,11,]),'PLUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[12,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,12,]),'MINUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[13,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,13,]),'EQUALS':([7,],[14,]),}
+_lr_action_items = {'INT':([0,8,9,10,11,12,13,14,],[5,5,5,5,5,5,5,5,]),'REAL':([0,8,9,10,11,12,13,14,],[6,6,6,6,6,6,6,6,]),'NAME':([0,8,9,10,11,12,13,14,],[7,16,16,16,16,16,16,16,]),'$end':([0,1,2,3,4,5,6,7,15,16,17,18,19,20,21,22,],[-14,0,-1,-2,-3,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,-4,]),'POWER':([2,5,6,7,15,16,17,18,19,20,21,22,],[8,-11,-12,-13,8,-13,8,8,8,8,8,8,]),'MULTIPLY':([2,5,6,7,15,16,17,18,19,20,21,22,],[9,-11,-12,-13,-5,-13,-6,-7,-8,9,9,9,]),'DIVIDE':([2,5,6,7,15,16,17,18,19,20,21,22,],[10,-11,-12,-13,-5,-13,-6,-7,-8,10,10,10,]),'MODULUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[11,-11,-12,-13,11,-13,11,11,11,11,11,11,]),'PLUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[12,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,12,]),'MINUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[13,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,13,]),'EQUALS':([7,],[14,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -26,18 +26,18 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> calc","S'",1,None,None,None),
-  ('calc -> expression','calc',1,'p_calc','calc.py',72),
-  ('calc -> var_assign','calc',1,'p_calc','calc.py',73),
-  ('calc -> empty','calc',1,'p_calc','calc.py',74),
-  ('var_assign -> NAME EQUALS expression','var_assign',3,'p_var_assign','calc.py',80),
-  ('expression -> expression POWER expression','expression',3,'p_expression','calc.py',86),
-  ('expression -> expression MULTIPLY expression','expression',3,'p_expression','calc.py',87),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression','calc.py',88),
-  ('expression -> expression MODULUS expression','expression',3,'p_expression','calc.py',89),
-  ('expression -> expression PLUS expression','expression',3,'p_expression','calc.py',90),
-  ('expression -> expression MINUS expression','expression',3,'p_expression','calc.py',91),
-  ('expression -> INT','expression',1,'p_expression_int_float','calc.py',97),
-  ('expression -> REAL','expression',1,'p_expression_int_float','calc.py',98),
-  ('expression -> NAME','expression',1,'p_expression_var','calc.py',104),
-  ('empty -> <empty>','empty',0,'p_empty','calc.py',110),
+  ('calc -> expression','calc',1,'p_calc','parser.py',15),
+  ('calc -> var_assign','calc',1,'p_calc','parser.py',16),
+  ('calc -> empty','calc',1,'p_calc','parser.py',17),
+  ('var_assign -> NAME EQUALS expression','var_assign',3,'p_var_assign','parser.py',23),
+  ('expression -> expression POWER expression','expression',3,'p_expression','parser.py',29),
+  ('expression -> expression MULTIPLY expression','expression',3,'p_expression','parser.py',30),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression','parser.py',31),
+  ('expression -> expression MODULUS expression','expression',3,'p_expression','parser.py',32),
+  ('expression -> expression PLUS expression','expression',3,'p_expression','parser.py',33),
+  ('expression -> expression MINUS expression','expression',3,'p_expression','parser.py',34),
+  ('expression -> INT','expression',1,'p_expression_int_float','parser.py',40),
+  ('expression -> REAL','expression',1,'p_expression_int_float','parser.py',41),
+  ('expression -> NAME','expression',1,'p_expression_var','parser.py',47),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',53),
 ]

@@ -1,71 +1,14 @@
-import ply.lex as lex
 import ply.yacc as yacc
-import sys
+from lexer import *
 
-# Tokens for <PL>
-tokens = [
-
-    'INT',
-    'REAL',
-    'STRING',
-    'NAME',
-    'PLUS',
-    'MINUS',
-    'DIVIDE',
-    'MULTIPLY',
-    'POWER',
-    'MODULUS',
-    'EQUALS'
-
-]
-
-# Setting up tokens
-t_PLUS = r'\+'
-t_MINUS = r'\-'
-t_DIVIDE = r'\/'
-t_POWER = r'\*\*'
-t_MULTIPLY = r'\*'
-t_MODULUS = r'\%'
-t_EQUALS = r'\='
-
-# Ignore white-space tokens
-t_ignore = r' '
-
-
-# Data Types for <PL>
-def t_REAL(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
-
-def t_INT(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-def t_NAME(t):
-    r'[a-zA-Z][a-zA-Z0-9_]*'
-    t.type = 'NAME'
-    return t
-
-def t_error(t):
-    print("Illegal characters!")
-    t.lexer.skip(1)
-
-
-# Create a lexer
-lexer = lex.lex()
-
-# Set the precedence of the
+# Set the precedence
 precedence = (
-
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'MULTIPLY', 'DIVIDE', 'MODULUS'),
-    ('right', 'POWER')
-
+    ('left', 'MULTIPLY', 'DIVIDE'),
+    ('right', 'POWER', 'MODULUS')
 )
 
-# Set of grammars in <PL>
+# Set of grammars in netflux
 
 def p_calc(p):
     '''
@@ -118,6 +61,7 @@ def p_error(p):
 # Create a parser
 
 parser = yacc.yacc()
+
 env = {}
 
 def run(p):
