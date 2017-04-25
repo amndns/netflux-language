@@ -75,6 +75,12 @@ def p_list(p):
     '''
     p[0] = p[2]
 
+def p_list_access(p):
+    '''
+    expression : NAME LBRACK expression RBRACK
+    '''
+    p[0] = ('access', p[1], p[3])
+
 def p_error(p):
     return "SyntaxError"
 
@@ -107,6 +113,11 @@ def run(p):
                 return 'Undeclared variable found!'
             else:
                 return env[p[1]]
+        elif p[0] == 'access':
+            try:
+                return env[p[1]][p[2]]
+            except IndexError:
+                return 'List index out of range'
     else:
         return p
 

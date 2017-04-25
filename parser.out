@@ -25,6 +25,7 @@ Rule 15    arguments -> arguments COMMA expression
 Rule 16    arguments -> expression
 Rule 17    arguments -> <empty>
 Rule 18    expression -> LBRACK arguments RBRACK
+Rule 19    expression -> NAME LBRACK expression RBRACK
 
 Terminals, with rules where they appear
 
@@ -32,14 +33,14 @@ COMMA                : 15
 DIVIDE               : 7
 EQUALS               : 4
 INT                  : 11
-LBRACK               : 18
+LBRACK               : 18 19
 MINUS                : 10
 MODULUS              : 8
 MULTIPLY             : 6
-NAME                 : 4 13
+NAME                 : 4 13 19
 PLUS                 : 9
 POWER                : 5
-RBRACK               : 18
+RBRACK               : 18 19
 REAL                 : 12
 STRING               : 
 error                : 
@@ -49,7 +50,7 @@ Nonterminals, with rules where they appear
 arguments            : 15 18
 calc                 : 0
 empty                : 3
-expression           : 1 4 5 5 6 6 7 7 8 8 9 9 10 10 15 16
+expression           : 1 4 5 5 6 6 7 7 8 8 9 9 10 10 15 16 19
 var_assign           : 2
 
 Parsing method: LALR
@@ -70,6 +71,7 @@ state 0
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
     (4) var_assign -> . NAME EQUALS expression
     (14) empty -> .
 
@@ -156,6 +158,7 @@ state 6
 state 7
 
     (13) expression -> NAME .
+    (19) expression -> NAME . LBRACK expression RBRACK
     (4) var_assign -> NAME . EQUALS expression
 
     POWER           reduce using rule 13 (expression -> NAME .)
@@ -165,7 +168,8 @@ state 7
     PLUS            reduce using rule 13 (expression -> NAME .)
     MINUS           reduce using rule 13 (expression -> NAME .)
     $end            reduce using rule 13 (expression -> NAME .)
-    EQUALS          shift and go to state 15
+    LBRACK          shift and go to state 15
+    EQUALS          shift and go to state 16
 
 
 state 8
@@ -184,16 +188,17 @@ state 8
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     RBRACK          reduce using rule 17 (arguments -> .)
     COMMA           reduce using rule 17 (arguments -> .)
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    arguments                      shift and go to state 16
-    expression                     shift and go to state 17
+    arguments                      shift and go to state 17
+    expression                     shift and go to state 18
 
 state 9
 
@@ -208,13 +213,14 @@ state 9
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 20
 
 state 10
 
@@ -229,13 +235,14 @@ state 10
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 20
+    expression                     shift and go to state 21
 
 state 11
 
@@ -250,13 +257,14 @@ state 11
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 21
+    expression                     shift and go to state 22
 
 state 12
 
@@ -271,13 +279,14 @@ state 12
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 22
+    expression                     shift and go to state 23
 
 state 13
 
@@ -292,13 +301,14 @@ state 13
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 23
+    expression                     shift and go to state 24
 
 state 14
 
@@ -313,15 +323,38 @@ state 14
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 24
+    expression                     shift and go to state 25
 
 state 15
+
+    (19) expression -> NAME LBRACK . expression RBRACK
+    (5) expression -> . expression POWER expression
+    (6) expression -> . expression MULTIPLY expression
+    (7) expression -> . expression DIVIDE expression
+    (8) expression -> . expression MODULUS expression
+    (9) expression -> . expression PLUS expression
+    (10) expression -> . expression MINUS expression
+    (11) expression -> . INT
+    (12) expression -> . REAL
+    (13) expression -> . NAME
+    (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
+
+    INT             shift and go to state 5
+    REAL            shift and go to state 6
+    NAME            shift and go to state 19
+    LBRACK          shift and go to state 8
+
+    expression                     shift and go to state 26
+
+state 16
 
     (4) var_assign -> NAME EQUALS . expression
     (5) expression -> . expression POWER expression
@@ -334,24 +367,25 @@ state 15
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 25
+    expression                     shift and go to state 27
 
-state 16
+state 17
 
     (18) expression -> LBRACK arguments . RBRACK
     (15) arguments -> arguments . COMMA expression
 
-    RBRACK          shift and go to state 26
-    COMMA           shift and go to state 27
+    RBRACK          shift and go to state 28
+    COMMA           shift and go to state 29
 
 
-state 17
+state 18
 
     (16) arguments -> expression .
     (5) expression -> expression . POWER expression
@@ -371,9 +405,10 @@ state 17
     MINUS           shift and go to state 14
 
 
-state 18
+state 19
 
     (13) expression -> NAME .
+    (19) expression -> NAME . LBRACK expression RBRACK
 
     POWER           reduce using rule 13 (expression -> NAME .)
     MULTIPLY        reduce using rule 13 (expression -> NAME .)
@@ -384,9 +419,10 @@ state 18
     RBRACK          reduce using rule 13 (expression -> NAME .)
     COMMA           reduce using rule 13 (expression -> NAME .)
     $end            reduce using rule 13 (expression -> NAME .)
+    LBRACK          shift and go to state 15
 
 
-state 19
+state 20
 
     (5) expression -> expression POWER expression .
     (5) expression -> expression . POWER expression
@@ -414,7 +450,7 @@ state 19
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 20
+state 21
 
     (6) expression -> expression MULTIPLY expression .
     (5) expression -> expression . POWER expression
@@ -442,7 +478,7 @@ state 20
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 21
+state 22
 
     (7) expression -> expression DIVIDE expression .
     (5) expression -> expression . POWER expression
@@ -470,7 +506,7 @@ state 21
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 22
+state 23
 
     (8) expression -> expression MODULUS expression .
     (5) expression -> expression . POWER expression
@@ -498,7 +534,7 @@ state 22
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 23
+state 24
 
     (9) expression -> expression PLUS expression .
     (5) expression -> expression . POWER expression
@@ -526,7 +562,7 @@ state 23
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 24
+state 25
 
     (10) expression -> expression MINUS expression .
     (5) expression -> expression . POWER expression
@@ -554,7 +590,26 @@ state 24
   ! MINUS           [ shift and go to state 14 ]
 
 
-state 25
+state 26
+
+    (19) expression -> NAME LBRACK expression . RBRACK
+    (5) expression -> expression . POWER expression
+    (6) expression -> expression . MULTIPLY expression
+    (7) expression -> expression . DIVIDE expression
+    (8) expression -> expression . MODULUS expression
+    (9) expression -> expression . PLUS expression
+    (10) expression -> expression . MINUS expression
+
+    RBRACK          shift and go to state 30
+    POWER           shift and go to state 9
+    MULTIPLY        shift and go to state 10
+    DIVIDE          shift and go to state 11
+    MODULUS         shift and go to state 12
+    PLUS            shift and go to state 13
+    MINUS           shift and go to state 14
+
+
+state 27
 
     (4) var_assign -> NAME EQUALS expression .
     (5) expression -> expression . POWER expression
@@ -573,7 +628,7 @@ state 25
     MINUS           shift and go to state 14
 
 
-state 26
+state 28
 
     (18) expression -> LBRACK arguments RBRACK .
 
@@ -588,7 +643,7 @@ state 26
     COMMA           reduce using rule 18 (expression -> LBRACK arguments RBRACK .)
 
 
-state 27
+state 29
 
     (15) arguments -> arguments COMMA . expression
     (5) expression -> . expression POWER expression
@@ -601,15 +656,31 @@ state 27
     (12) expression -> . REAL
     (13) expression -> . NAME
     (18) expression -> . LBRACK arguments RBRACK
+    (19) expression -> . NAME LBRACK expression RBRACK
 
     INT             shift and go to state 5
     REAL            shift and go to state 6
-    NAME            shift and go to state 18
+    NAME            shift and go to state 19
     LBRACK          shift and go to state 8
 
-    expression                     shift and go to state 28
+    expression                     shift and go to state 31
 
-state 28
+state 30
+
+    (19) expression -> NAME LBRACK expression RBRACK .
+
+    POWER           reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    MULTIPLY        reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    DIVIDE          reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    MODULUS         reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    PLUS            reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    MINUS           reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    $end            reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    RBRACK          reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+    COMMA           reduce using rule 19 (expression -> NAME LBRACK expression RBRACK .)
+
+
+state 31
 
     (15) arguments -> arguments COMMA expression .
     (5) expression -> expression . POWER expression
