@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDErightPOWERMODULUSINT REAL STRING NAME PLUS MINUS DIVIDE MULTIPLY POWER MODULUS EQUALS\n    calc : expression\n         | var_assign\n         | empty\n    \n    var_assign : NAME EQUALS expression\n    \n    expression : expression POWER expression\n               | expression MULTIPLY expression\n               | expression DIVIDE expression\n               | expression MODULUS expression\n               | expression PLUS expression\n               | expression MINUS expression\n    \n    expression : INT\n               | REAL\n    \n    expression : NAME\n    \n    empty :\n    '
+_lr_signature = 'leftPLUSMINUSleftMULTIPLYDIVIDErightPOWERMODULUSINT REAL STRING NAME LBRACK RBRACK COMMA PLUS MINUS DIVIDE MULTIPLY POWER MODULUS EQUALS\n    calc : expression\n         | var_assign\n         | empty\n    \n    var_assign : NAME EQUALS expression\n    \n    expression : expression POWER expression\n               | expression MULTIPLY expression\n               | expression DIVIDE expression\n               | expression MODULUS expression\n               | expression PLUS expression\n               | expression MINUS expression\n    \n    expression : INT\n               | REAL\n    \n    expression : NAME\n    \n    empty :\n    \n    arguments : arguments COMMA expression\n              | expression\n              |\n    \n    expression : LBRACK arguments RBRACK\n    '
     
-_lr_action_items = {'INT':([0,8,9,10,11,12,13,14,],[5,5,5,5,5,5,5,5,]),'REAL':([0,8,9,10,11,12,13,14,],[6,6,6,6,6,6,6,6,]),'NAME':([0,8,9,10,11,12,13,14,],[7,16,16,16,16,16,16,16,]),'$end':([0,1,2,3,4,5,6,7,15,16,17,18,19,20,21,22,],[-14,0,-1,-2,-3,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,-4,]),'POWER':([2,5,6,7,15,16,17,18,19,20,21,22,],[8,-11,-12,-13,8,-13,8,8,8,8,8,8,]),'MULTIPLY':([2,5,6,7,15,16,17,18,19,20,21,22,],[9,-11,-12,-13,-5,-13,-6,-7,-8,9,9,9,]),'DIVIDE':([2,5,6,7,15,16,17,18,19,20,21,22,],[10,-11,-12,-13,-5,-13,-6,-7,-8,10,10,10,]),'MODULUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[11,-11,-12,-13,11,-13,11,11,11,11,11,11,]),'PLUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[12,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,12,]),'MINUS':([2,5,6,7,15,16,17,18,19,20,21,22,],[13,-11,-12,-13,-5,-13,-6,-7,-8,-9,-10,13,]),'EQUALS':([7,],[14,]),}
+_lr_action_items = {'INT':([0,8,9,10,11,12,13,14,15,27,],[5,5,5,5,5,5,5,5,5,5,]),'REAL':([0,8,9,10,11,12,13,14,15,27,],[6,6,6,6,6,6,6,6,6,6,]),'NAME':([0,8,9,10,11,12,13,14,15,27,],[7,18,18,18,18,18,18,18,18,18,]),'LBRACK':([0,8,9,10,11,12,13,14,15,27,],[8,8,8,8,8,8,8,8,8,8,]),'$end':([0,1,2,3,4,5,6,7,18,19,20,21,22,23,24,25,26,],[-14,0,-1,-2,-3,-11,-12,-13,-13,-5,-6,-7,-8,-9,-10,-4,-18,]),'POWER':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[9,-11,-12,-13,9,-13,9,9,9,9,9,9,9,-18,9,]),'MULTIPLY':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[10,-11,-12,-13,10,-13,-5,-6,-7,-8,10,10,10,-18,10,]),'DIVIDE':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[11,-11,-12,-13,11,-13,-5,-6,-7,-8,11,11,11,-18,11,]),'MODULUS':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[12,-11,-12,-13,12,-13,12,12,12,12,12,12,12,-18,12,]),'PLUS':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[13,-11,-12,-13,13,-13,-5,-6,-7,-8,-9,-10,13,-18,13,]),'MINUS':([2,5,6,7,17,18,19,20,21,22,23,24,25,26,28,],[14,-11,-12,-13,14,-13,-5,-6,-7,-8,-9,-10,14,-18,14,]),'RBRACK':([5,6,8,16,17,18,19,20,21,22,23,24,26,28,],[-11,-12,-17,26,-16,-13,-5,-6,-7,-8,-9,-10,-18,-15,]),'COMMA':([5,6,8,16,17,18,19,20,21,22,23,24,26,28,],[-11,-12,-17,27,-16,-13,-5,-6,-7,-8,-9,-10,-18,-15,]),'EQUALS':([7,],[15,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'calc':([0,],[1,]),'expression':([0,8,9,10,11,12,13,14,],[2,15,17,18,19,20,21,22,]),'var_assign':([0,],[3,]),'empty':([0,],[4,]),}
+_lr_goto_items = {'calc':([0,],[1,]),'expression':([0,8,9,10,11,12,13,14,15,27,],[2,17,19,20,21,22,23,24,25,28,]),'var_assign':([0,],[3,]),'empty':([0,],[4,]),'arguments':([8,],[16,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -40,4 +40,8 @@ _lr_productions = [
   ('expression -> REAL','expression',1,'p_expression_int_float','parser.py',41),
   ('expression -> NAME','expression',1,'p_expression_var','parser.py',47),
   ('empty -> <empty>','empty',0,'p_empty','parser.py',53),
+  ('arguments -> arguments COMMA expression','arguments',3,'p_comma_separated_expr','parser.py',60),
+  ('arguments -> expression','arguments',1,'p_comma_separated_expr','parser.py',61),
+  ('arguments -> <empty>','arguments',0,'p_comma_separated_expr','parser.py',62),
+  ('expression -> LBRACK arguments RBRACK','expression',3,'p_list','parser.py',74),
 ]

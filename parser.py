@@ -54,6 +54,27 @@ def p_empty(p):
     '''
     p[0] = None
 
+def p_comma_separated_expr(p):
+    '''
+    arguments : arguments COMMA expression
+              | expression
+              |
+    '''
+    if len(p) == 2:
+        p[0] = [run(p[1])]
+    elif len(p) == 1:
+        p[0] = []
+    else:
+        p[1].append(p[3])
+        p[0] = p[1]
+
+
+def p_list(p):
+    '''
+    expression : LBRACK arguments RBRACK
+    '''
+    p[0] = p[2]
+
 def p_error(p):
     return "SyntaxError"
 
@@ -61,7 +82,6 @@ def p_error(p):
 # Create a parser
 
 parser = yacc.yacc()
-
 env = {}
 
 def run(p):
@@ -82,7 +102,7 @@ def run(p):
         elif p[0]== '=':
             env[p[1]] = run(p[2])
             return env
-        elif p[0]== 'var':
+        elif p[0] == 'var':
             if p[1] not in env:
                 return 'Undeclared variable found!'
             else:

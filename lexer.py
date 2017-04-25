@@ -6,16 +6,25 @@ tokens = [
     'REAL',
     'STRING',
     'NAME',
+
+    'LBRACK',
+    'RBRACK',
+    'COMMA',
+
     'PLUS',
     'MINUS',
     'DIVIDE',
     'MULTIPLY',
     'POWER',
     'MODULUS',
+
     'EQUALS'
 ]
 
 # Setting up tokens
+t_LBRACK = r'\['
+t_RBRACK = r'\]'
+t_COMMA = r'\,'
 t_PLUS = r'\+'
 t_MINUS = r'\-'
 t_DIVIDE = r'\/'
