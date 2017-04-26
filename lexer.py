@@ -9,6 +9,7 @@ tokens = [
 
     'LBRACK',
     'RBRACK',
+    # 'QUOTE',
     'COMMA',
 
     'PLUS',
@@ -24,6 +25,7 @@ tokens = [
 # Setting up tokens
 t_LBRACK = r'\['
 t_RBRACK = r'\]'
+# t_QUOTE = r'\"'
 t_COMMA = r'\,'
 t_PLUS = r'\+'
 t_MINUS = r'\-'
@@ -53,10 +55,14 @@ def t_NAME(t):
     t.type = 'NAME'
     return t
 
+# def t_STRING(t):
+#     r'.'
+#     t.value = str(t.value)
+#     return t
+
 def t_error(t):
     print("Illegal characters!")
     t.lexer.skip(1)
-
 
 # Create a lexer
 lexer = lex.lex()

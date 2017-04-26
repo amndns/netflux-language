@@ -14,6 +14,7 @@ def p_calc(p):
     '''
     calc : expression
          | var_assign
+         | list_access_assign
          | empty
     '''
     print(run(p[1]))
@@ -68,7 +69,6 @@ def p_comma_separated_expr(p):
         p[1].append(p[3])
         p[0] = p[1]
 
-
 def p_list(p):
     '''
     expression : LBRACK arguments RBRACK
@@ -80,6 +80,12 @@ def p_list_access(p):
     expression : NAME LBRACK expression RBRACK
     '''
     p[0] = ('access', p[1], p[3])
+
+def p_list_access_assign(p):
+    '''
+    list_access_assign : NAME LBRACK expression RBRACK EQUALS expression
+    '''
+    p[0] = ('access_assign', p[1], run(p[3]), run(p[6]))
 
 def p_error(p):
     return "SyntaxError"
@@ -118,6 +124,12 @@ def run(p):
                 return env[p[1]][p[2]]
             except IndexError:
                 return 'List index out of range'
+        elif p[0] == 'access_assign':
+                try:
+                    env[p[1]][p[2]] = p[3]
+                    return p[3]
+                except IndexError:
+                    return 'List index out of range'
     else:
         return p
 
