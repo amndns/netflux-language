@@ -22,6 +22,7 @@ def p_calc(p):
 def p_var_assign(p):
     '''
     var_assign : NAME EQUALS expression
+               | NAME EQUALS STRING
     '''
     p[0] = ('=', p[1], p[3])
 
@@ -58,7 +59,9 @@ def p_empty(p):
 def p_comma_separated_expr(p):
     '''
     arguments : arguments COMMA expression
+              | arguments COMMA STRING
               | expression
+              | STRING
               |
     '''
     if len(p) == 2:
@@ -84,6 +87,7 @@ def p_list_access(p):
 def p_list_access_assign(p):
     '''
     list_access_assign : NAME LBRACK expression RBRACK EQUALS expression
+                       | NAME LBRACK expression RBRACK EQUALS STRING
     '''
     p[0] = ('access_assign', p[1], run(p[3]), run(p[6]))
 
