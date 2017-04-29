@@ -82,7 +82,7 @@ def p_list_access(p):
     '''
     expression : NAME LBRACK expression RBRACK
     '''
-    p[0] = ('access', p[1], p[3])
+    p[0] = ('access', p[1], run(p[3]))
 
 def p_list_access_assign(p):
     '''
