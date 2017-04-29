@@ -136,15 +136,3 @@ def run(p):
                     return 'List index out of range'
     else:
         return p
-
-
-
-
-# Running the programming language
-
-while True:
-    try:
-        s = input('>> ')
-    except EOFError:
-        break
-    parser.parse(s)
