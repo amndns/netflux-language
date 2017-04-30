@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from lexer import *
+from compiler.lexer import *
 
 # Set the precedence
 precedence = (

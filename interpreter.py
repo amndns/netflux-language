@@ -1,4 +1,4 @@
-from parser import *
+from compiler.parser import *
 
 # Running the interpreter of netflux
 

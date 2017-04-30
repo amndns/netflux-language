@@ -1,0 +1,7 @@
+.idea
+__pycache__
+parser.out
+parsetab.py
+scripts
+server.py
+index.html
