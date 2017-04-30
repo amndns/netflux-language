@@ -1,11 +1,32 @@
 import ply.lex as lex
 
+
+# Reserved words for netflux
+reserved = {
+    # 'if': 'IF',
+    # 'else': 'ELSE',
+    #
+    # 'for': 'FOR',
+    # 'in': 'IN',
+    # 'while': 'WHILE',
+    # 'exit': 'EXIT',
+    #
+    # 'say': 'PRINT',
+
+    'and': 'AND',
+    'or': 'OR',
+    'not': 'NOT'
+}
+
 # Tokens for netflux
 tokens = [
     'INT',
     'REAL',
     'STRING',
     'NAME',
+
+    'TRUE',
+    'FALSE',
 
     'LBRACK',
     'RBRACK',
@@ -17,9 +38,15 @@ tokens = [
     'MULTIPLY',
     'POWER',
     'MODULUS',
+    'EQUALS',
 
-    'EQUALS'
-]
+    'EQ',
+    'NEQ',
+    'GT',
+    'GTE',
+    'LT',
+    'LTE',
+] + list(reserved.values())
 
 # Setting up tokens
 t_LBRACK = r'\['
@@ -32,10 +59,15 @@ t_POWER = r'\*\*'
 t_MULTIPLY = r'\*'
 t_MODULUS = r'\%'
 t_EQUALS = r'\='
+t_EQ = r'\=\='
+t_NEQ = r'\!\='
+t_GT = r'\>'
+t_GTE = r'\>\='
+t_LT = r'\<'
+t_LTE = r'\<\='
 
 # Ignore white-space tokens
 t_ignore = r' '
-
 
 # Data Types for netflux
 def t_REAL(t):
@@ -48,9 +80,19 @@ def t_INT(t):
     t.value = int(t.value)
     return t
 
+def t_TRUE(t):
+    'true'
+    t.value = True
+    return t
+
+def t_FALSE(t):
+    'false'
+    t.value = False
+    return t
+
 def t_NAME(t):
     r'[a-zA-Z][a-zA-Z0-9_]*'
-    t.type = 'NAME'
+    t.type = reserved.get(t.value, t.type)
     return t
 
 def t_STRING(t):
