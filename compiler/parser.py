@@ -6,7 +6,9 @@ precedence = (
     ('left', 'NOT', 'EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'MULTIPLY', 'DIVIDE'),
-    ('right', 'POWER', 'MODULUS')
+    ('right', 'POWER', 'MODULUS'),
+    ('right', 'UMINUS'),
+    ('right', 'UPLUS')
 )
 
 # Set of grammars in netflux
@@ -74,11 +76,18 @@ def p_boolean_operators(p):
     '''
     p[0] = (p[2], p[1], p[3])
 
-def p_not_boolean_operator(p):
+def p_unary_boolean_operators(p):
     '''
     boolean : NOT expression
     '''
     p[0] = (p[1], p[2])
+
+def p_unary_operators(p):
+    '''
+    expression : MINUS expression %prec UMINUS
+               | PLUS expression %prec UPLUS
+    '''
+    p[0] = ('unary', p[1], run(p[2]))
 
 
 def p_expression_var(p):
@@ -183,10 +192,15 @@ def run(p):
             except IndexError:
                 return 'List index out of range'
         elif p[0] == 'access_assign':
-                try:
-                    env[p[1]][p[2]] = p[3]
-                    return p[3]
-                except IndexError:
-                    return 'List index out of range'
+            try:
+                env[p[1]][p[2]] = p[3]
+                return p[3]
+            except IndexError:
+                return 'List index out of range'
+        elif p[0] == 'unary':
+            if p[1] == '+':
+                return run(p[2])
+            elif p[1] == '-':
+                return -run(p[2])
     else:
         return p
