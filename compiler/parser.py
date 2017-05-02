@@ -13,17 +13,21 @@ precedence = (
 
 # Set of grammars in netflux
 
-def p_eval(p):
+def p_statement(p):
     '''
-    eval : expression
-         | var_assign
-         | list_access_assign
-         |
+    statement : expression
+              | PRINT expression
+              | var_assign
+              | list_access_assign
+              |
     '''
     try:
-        print(run(p[1]))
+        if (p[1] == 'print'):
+            print(run(p[2]))
+        else:
+            run(p[1])
     except IndexError:
-        print("SyntaxError: invalid syntax")
+        print("SyntaxError: invalid or empty syntax")
 
 
 def p_var_assign(p):

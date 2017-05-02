@@ -11,8 +11,7 @@ reserved = {
     # 'while': 'WHILE',
     # 'exit': 'EXIT',
     #
-    # 'say': 'PRINT',
-
+    'print': 'PRINT',
     'and': 'AND',
     'or': 'OR',
     'not': 'NOT'
