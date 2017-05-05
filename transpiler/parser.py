@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from compiler.lexer import *
+from transpiler.lexer import *
 
 # Set the precedence
 precedence = (
@@ -34,6 +34,7 @@ def p_var_assign(p):
     '''
     var_assign : NAME EQUALS expression
                | NAME EQUALS STRING
+               | NAME EQUALS read
     '''
     p[0] = ('=', p[1], p[3])
 
@@ -140,6 +141,13 @@ def p_list_access_assign(p):
     p[0] = ('access_assign', p[1], run(p[3]), run(p[6]))
 
 
+def p_read(p):
+    '''
+    read : READ LPAREN CONSOLE RPAREN
+    '''
+    p[0] = ('read', p[3])
+
+
 def p_error(p):
     return "SyntaxError"
 
@@ -206,5 +214,8 @@ def run(p):
                 return run(p[2])
             elif p[1] == '-':
                 return -run(p[2])
+        elif p[0] == 'read':
+            if p[1] == 'console':
+                return input()
     else:
         return p

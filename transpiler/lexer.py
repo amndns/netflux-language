@@ -11,6 +11,8 @@ reserved = {
     # 'while': 'WHILE',
     # 'exit': 'EXIT',
     #
+    'console': 'CONSOLE',
+    'read': 'READ',
     'print': 'PRINT',
     'and': 'AND',
     'or': 'OR',
@@ -27,6 +29,8 @@ tokens = [
     'TRUE',
     'FALSE',
 
+    'LPAREN',
+    'RPAREN',
     'LBRACK',
     'RBRACK',
     'COMMA',
@@ -50,6 +54,8 @@ tokens = [
 # Setting up tokens
 t_LBRACK = r'\['
 t_RBRACK = r'\]'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_COMMA = r'\,'
 t_PLUS = r'\+'
 t_MINUS = r'\-'
