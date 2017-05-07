@@ -3,18 +3,13 @@ import ply.lex as lex
 
 # Reserved words for netflux
 reserved = {
-    # 'if': 'IF',
-    # 'else': 'ELSE',
-    #
-    # 'for': 'FOR',
-    # 'in': 'IN',
-    # 'while': 'WHILE',
-    # 'exit': 'EXIT',
-    #
+    'write': 'WRITE',
+    'read': 'READ',
+
     'eval': 'EVAL',
     'console': 'CONSOLE',
-    'read': 'READ',
     'print': 'PRINT',
+
     'and': 'AND',
     'or': 'OR',
     'not': 'NOT'
