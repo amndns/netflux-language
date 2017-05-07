@@ -15,8 +15,10 @@ precedence = (
 
 def p_statement(p):
     '''
-    statement : expression
-              | PRINT expression
+    statement : PRINT expression
+              | PRINT read
+              | expression
+              | read
               | var_assign
               | list_access_assign
               |
@@ -147,6 +149,14 @@ def p_read(p):
     '''
     p[0] = ('read', p[3])
 
+def p_eval(p):
+    '''
+    expression : EVAL LPAREN STRING RPAREN
+               | EVAL LPAREN NAME RPAREN
+               | EVAL LPAREN read RPAREN
+    '''
+    p[0] = ('eval', p[3])
+
 
 def p_error(p):
     return "SyntaxError"
@@ -195,20 +205,23 @@ def run(p):
             return env
         elif p[0] == 'var':
             if p[1] not in env:
-                return 'Undeclared variable found!'
+                print('NameError: Undeclared variable found!')
+                quit()
             else:
                 return env[p[1]]
         elif p[0] == 'access':
             try:
                 return env[p[1]][p[2]]
             except IndexError:
-                return 'List index out of range'
+                print('IndexError: List index out of range')
+                quit()
         elif p[0] == 'access_assign':
             try:
                 env[p[1]][p[2]] = p[3]
                 return p[3]
             except IndexError:
-                return 'List index out of range'
+                print('IndexError: List index out of range')
+                quit()
         elif p[0] == 'unary':
             if p[1] == '+':
                 return run(p[2])
@@ -217,5 +230,14 @@ def run(p):
         elif p[0] == 'read':
             if p[1] == 'console':
                 return input()
+        elif p[0] == 'eval':
+            try:
+                return eval(run(p[1]))
+            except NameError:
+                print('TypeError: eval() arg must be a string of numbers')
+                quit()
+            except TypeError:
+                print('TypeError: eval() arg must be a string object')
+                quit()
     else:
         return p

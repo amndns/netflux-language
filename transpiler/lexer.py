@@ -11,6 +11,7 @@ reserved = {
     # 'while': 'WHILE',
     # 'exit': 'EXIT',
     #
+    'eval': 'EVAL',
     'console': 'CONSOLE',
     'read': 'READ',
     'print': 'PRINT',
@@ -106,7 +107,7 @@ def t_STRING(t):
     return t
 
 def t_error(t):
-    print("Illegal characters!")
+    print('SyntaxError: illegal characters')
     t.lexer.skip(1)
 
 # Create a lexer
