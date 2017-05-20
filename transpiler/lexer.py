@@ -3,6 +3,9 @@ import ply.lex as lex
 
 # Reserved words for netflux
 reserved = {
+    'if' : 'IF',
+    'end': 'END',
+
     'write': 'WRITE',
     'read': 'READ',
 
@@ -25,6 +28,7 @@ tokens = [
     'TRUE',
     'FALSE',
 
+    'DOT',
     'LPAREN',
     'RPAREN',
     'LBRACK',
@@ -48,6 +52,7 @@ tokens = [
 ] + list(reserved.values())
 
 # Setting up tokens
+t_DOT = r'\.'
 t_LBRACK = r'\['
 t_RBRACK = r'\]'
 t_LPAREN = r'\('

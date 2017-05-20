@@ -15,21 +15,64 @@ precedence = (
 
 def p_statement(p):
     '''
-    statement : PRINT expression
-              | PRINT read
-              | expression
-              | read
-              | var_assign
-              | list_access_assign
+    statement : expression DOT
+              | read DOT
+              | var_assign DOT
+              | list_access_assign DOT
+              | print_statement DOT
+              | if_statement
               |
     '''
-    try:
-        if (p[1] == 'print'):
-            print(run(p[2]))
-        else:
-            run(p[1])
-    except IndexError:
-        print("SyntaxError: invalid or empty syntax")
+    run(p[1])
+
+def p_blocks(p):
+    '''
+    blocks : block
+           | blocks block
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[1].append(p[2])
+        p[0] = p[1]
+
+
+def p_block(p):
+    '''
+    block : expression DOT
+          | read DOT
+          | var_assign DOT
+          | list_access_assign DOT
+          | print_block DOT
+          | if_statement
+          |
+    '''
+    p[0] = p[1]
+
+def p_print_statement(p):
+    '''
+    print_statement : PRINT expression
+                    | PRINT read
+                    | PRINT STRING
+    '''
+    print(run(p[2]))
+
+def p_print_block(p):
+    '''
+    print_block : PRINT expression
+                | PRINT read
+                | PRINT STRING
+    '''
+    p[0] = ('print', p[2])
+
+def p_ifstatement(p):
+    '''
+    if_statement : IF LPAREN expression RPAREN blocks END
+    '''
+    if (run(p[3])):
+        run(p[5])
+    else:
+        p[0] = None
 
 
 def p_var_assign(p):
@@ -182,6 +225,9 @@ def run(p):
     global env
     if type(p) == tuple:
 
+        if p[0] == 'print':
+            print(run(p[1]))
+
         if p[0] == '+':
             return run(p[1]) + run(p[2])
         elif p[0] == '-':
@@ -271,6 +317,11 @@ def run(p):
             target.write(str(run(p[2])))
             target.close
             return True
+
+    elif type(p) == list:
+        for i in p:
+            run(i)
+        return
 
     else:
         return p
