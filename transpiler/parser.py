@@ -13,15 +13,9 @@ precedence = (
 
 # Set of grammars in netflux
 
-def p_statement(p):
+def p_run(p):
     '''
-    statement : expression DOT
-              | read DOT
-              | var_assign DOT
-              | list_access_assign DOT
-              | print_statement DOT
-              | if_statement
-              |
+    run : blocks
     '''
     run(p[1])
 
@@ -49,14 +43,6 @@ def p_block(p):
     '''
     p[0] = p[1]
 
-def p_print_statement(p):
-    '''
-    print_statement : PRINT expression
-                    | PRINT read
-                    | PRINT STRING
-    '''
-    print(run(p[2]))
-
 def p_print_block(p):
     '''
     print_block : PRINT expression
@@ -70,7 +56,7 @@ def p_ifstatement(p):
     if_statement : IF LPAREN expression RPAREN blocks END
     '''
     if (run(p[3])):
-        run(p[5])
+        p[0] = p[5]
     else:
         p[0] = None
 

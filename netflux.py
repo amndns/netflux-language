@@ -13,14 +13,8 @@ except IndexError:
 temp = ""
 for line in f:
     try:
-        if "end" in line:
-            temp += line.rstrip()
-            parser.parse(temp)
-            temp = ""
-        elif "if" in line or len(temp) > 0:
-            temp += line.rstrip()
-            continue
-        else:
-            parser.parse(line.rstrip())
+        temp += line.rstrip()
+        temp += " "
     except EOFError:
         break
+parser.parse(temp)
