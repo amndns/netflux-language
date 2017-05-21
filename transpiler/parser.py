@@ -319,9 +319,12 @@ def run(p):
             return True
 
     elif type(p) == list:
-        for i in p:
-            run(i)
-        return
+        if type(p[0]) == tuple:
+            for i in p:
+                run(i)
+            return
+        else:
+            return p
 
     else:
         return p
