@@ -60,6 +60,24 @@ def p_ifstatement(p):
     else:
         p[0] = None
 
+def p_ifstatement_else(p):
+    '''
+    if_statement : IF LPAREN expression RPAREN blocks ELSE blocks END
+    '''
+    if (run(p[3])):
+        p[0] = p[5]
+    else:
+        p[0] = p[7]
+
+# def p_ifstatement_else_if(p):
+#     '''
+#     if_statement : IF LPAREN expression RPAREN blocks ELSE if_statement
+#     '''
+#     if (run(p[3])):
+#         p[0] = p[5]
+#     else:
+#         p[0] = p[7]
+
 
 def p_var_assign(p):
     '''
@@ -305,11 +323,15 @@ def run(p):
             return True
 
     elif type(p) == list:
-        if type(p[0]) == tuple:
-            for i in p:
-                run(i)
-            return
-        else:
+        # print(p)
+        try:
+            if type(p[0][0]) == list or type(p[0]) == tuple or type(p[0][0]) == tuple:
+                for i in p:
+                    run(i)
+                return
+            else:
+                return p
+        except (IndexError, TypeError) as e:
             return p
 
     else:

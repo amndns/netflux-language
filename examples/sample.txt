@@ -1,13 +1,22 @@
-print 2 + 1.
+print "FIRST LINE".
 if (1 == 1)
-a = 32103102.
-print a.
-if (1 == 1)
-print a + 2.
-if (2 == 1)
-print "HELLO WORLD".
+  a = 32103102.
+  print a.
+  if (2 == 1)
+    if (1 == 1)
+      print "SANITY CHECK1".
+    end
+  else
+    if (1 == 1)
+      if (1 == 1)
+        print "SANITY CHECK2".
+        b = [1,2,3].
+        print b.
+      end
+      print "HELLO WORLD".
+      print a + 1.
+    end
+  end
 end
-end
-end
-print 1.
-print "HELAKDSLAKDLAS".
+print "LAST".
+print "LINE".
