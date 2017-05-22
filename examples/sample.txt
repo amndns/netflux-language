@@ -15,11 +15,16 @@ if (1 == 1)
 
     if (a == 1)
 
-      if (a < 1)
+      if (a > 1)
         print "SANITY CHECK2".
-        c = 1.
-        b = [1,"THIS IS ME",3].
-        print b[1].
+        c = "THIS IS THE VALUE OF C".
+        d = -1-1.
+        b = [1,"THIS IS ME",3, c, d].
+        print b[a+3].
+        b[a+3] = read("hello.txt").
+        print b.
+      else
+        print "LMAO".
       end
 
       print "HELLO WORLD".

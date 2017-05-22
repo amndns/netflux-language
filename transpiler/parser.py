@@ -2,6 +2,7 @@ import ply.yacc as yacc
 from transpiler.lexer import *
 
 # Set the precedence
+
 precedence = (
     ('left', 'NOT', 'EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE'),
     ('left', 'PLUS', 'MINUS'),
@@ -11,6 +12,7 @@ precedence = (
     ('right', 'UPLUS')
 )
 
+
 # Set of grammars in netflux
 
 def p_run(p):
@@ -18,6 +20,7 @@ def p_run(p):
     run : blocks
     '''
     run(p[1])
+
 
 def p_blocks(p):
     '''
@@ -43,6 +46,7 @@ def p_block(p):
     '''
     p[0] = p[1]
 
+
 def p_print_block(p):
     '''
     print_block : PRINT expression
@@ -51,11 +55,13 @@ def p_print_block(p):
     '''
     p[0] = ('print', p[2])
 
+
 def p_ifstatement(p):
     '''
     if_statement : IF LPAREN expression RPAREN blocks END
     '''
     p[0] = ('if', p[3], p[5])
+
 
 def p_ifstatement_else(p):
     '''
@@ -115,18 +121,20 @@ def p_boolean_operators(p):
     '''
     p[0] = (p[2], p[1], p[3])
 
+
 def p_unary_boolean_operators(p):
     '''
     boolean : NOT expression
     '''
     p[0] = (p[1], p[2])
 
+
 def p_unary_operators(p):
     '''
     expression : MINUS expression %prec UMINUS
                | PLUS expression %prec UPLUS
     '''
-    p[0] = ('unary', p[1], run(p[2]))
+    p[0] = ('unary', p[1], p[2])
 
 
 def p_expression_var(p):
@@ -145,7 +153,7 @@ def p_comma_separated_expr(p):
               |
     '''
     if len(p) == 2:
-        p[0] = [run(p[1])]
+        p[0] = [p[1]]
     elif len(p) == 1:
         p[0] = []
     else:
@@ -164,15 +172,16 @@ def p_list_access(p):
     '''
     expression : NAME LBRACK expression RBRACK
     '''
-    p[0] = ('access', p[1], run(p[3]))
+    p[0] = ('access', p[1], p[3])
 
 
 def p_list_access_assign(p):
     '''
     list_access_assign : NAME LBRACK expression RBRACK EQUALS expression
                        | NAME LBRACK expression RBRACK EQUALS STRING
+                       | NAME LBRACK expression RBRACK EQUALS read
     '''
-    p[0] = ('access_assign', p[1], run(p[3]), run(p[6]))
+    p[0] = ('access_assign', p[1], p[3], p[6])
 
 
 def p_read(p):
@@ -189,7 +198,7 @@ def p_eval(p):
                | EVAL LPAREN NAME RPAREN
                | EVAL LPAREN read RPAREN
     '''
-    p[0] = ('eval', run(p[3]))
+    p[0] = ('eval', p[3])
 
 
 def p_write_to_file(p):
@@ -198,7 +207,7 @@ def p_write_to_file(p):
             | WRITE LPAREN STRING COMMA expression RPAREN
             | WRITE LPAREN STRING COMMA read RPAREN
     '''
-    p[0] = ('write', run(p[3]), run(p[5]))
+    p[0] = ('write', p[3], p[5])
 
 
 def p_error(p):
@@ -269,15 +278,15 @@ def run(p):
 
         elif p[0] == 'access':
             try:
-                return env[p[1]][p[2]]
+                return env[p[1]][run(p[2])]
             except IndexError:
                 print('IndexError: List index out of range')
                 quit()
 
         elif p[0] == 'access_assign':
             try:
-                env[p[1]][p[2]] = p[3]
-                return p[3]
+                env[p[1]][run(p[2])] = run(p[3])
+                return
             except IndexError:
                 print('IndexError: List index out of range')
                 quit()
@@ -299,7 +308,7 @@ def run(p):
 
         elif p[0] == 'eval':
             try:
-                return eval(p[1])
+                return eval(run(p[1]))
             except NameError:
                 print('TypeError: eval() arg must be a string of numbers')
                 quit()
@@ -328,12 +337,10 @@ def run(p):
     elif type(p) == list:
         # print(p)
         try:
-            if type(p[0][0]) == list or type(p[0]) == tuple or type(p[0][0]) == tuple:
-                for i in p:
-                    run(i)
-                return
-            else:
-                return p
+            return_list = []
+            for i in p:
+                return_list.append(run(i))
+            return return_list
         except (IndexError, TypeError, KeyError) as e:
             return p
 
