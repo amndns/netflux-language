@@ -4,8 +4,9 @@ import ply.lex as lex
 # Reserved words for netflux
 reserved = {
     'while': 'WHILE',
-    'else' : 'ELSE',
+    'stop': 'STOP',
     'if' : 'IF',
+    'else' : 'ELSE',
     'end': 'END',
 
     'write': 'WRITE',

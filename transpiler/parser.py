@@ -56,6 +56,12 @@ def p_print_block(p):
     p[0] = ('print', p[2])
 
 
+def p_stop_block(p):
+    '''
+    block : STOP DOT
+    '''
+    p[0] = 'stop'
+
 def p_ifstatement(p):
     '''
     if_statement : IF LPAREN expression RPAREN blocks END
@@ -223,7 +229,9 @@ def p_error(p):
 # Create a parser
 
 parser = yacc.yacc()
-env = {}
+
+env = {}            # variables
+trigger = False     # break statement trigger
 
 def run_if(p):
     for i in p:
@@ -233,6 +241,7 @@ def run_if(p):
 def run(p):
     # print(p)
     global env
+    global trigger
     if type(p) == tuple:
 
         if p[0] == 'print':
@@ -342,18 +351,28 @@ def run(p):
 
         elif p[0] == 'while-loop':
             while run(p[1]):
+                if (trigger):
+                    trigger = False
+                    break
                 run(p[2])
             return
 
+
     elif type(p) == list:
-        # print(p)
         try:
             return_list = []
             for i in p:
+                if (trigger):
+                    continue
                 return_list.append(run(i))
             return return_list
         except (IndexError, TypeError, KeyError) as e:
             return p
+
+
+    elif p == 'stop':
+        trigger = True
+        return
 
     else:
         return p
