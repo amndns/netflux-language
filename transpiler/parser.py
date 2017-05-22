@@ -195,6 +195,12 @@ def p_list_access_assign(p):
     '''
     p[0] = ('access_assign', p[1], p[3], p[6])
 
+def p_list_string_length(p):
+    '''
+    expression : LEN LPAREN NAME RPAREN
+    '''
+    p[0] = ('len', p[3])
+
 
 def p_read(p):
     '''
@@ -223,7 +229,12 @@ def p_write_to_file(p):
 
 
 def p_error(p):
-    return "SyntaxError"
+    if p is not None:
+        print("SyntaxError: Illegal use of token '%s' found!" % p.value)
+    else:
+        print("SyntaxError: Unexpected end of input!")
+    quit()
+
 
 
 # Create a parser
@@ -233,15 +244,11 @@ parser = yacc.yacc()
 env = {}            # variables
 trigger = False     # break statement trigger
 
-def run_if(p):
-    for i in p:
-        run(i)
-    return
-
 def run(p):
-    # print(p)
+
     global env
     global trigger
+
     if type(p) == tuple:
 
         if p[0] == 'print':
@@ -304,6 +311,13 @@ def run(p):
                 return
             except IndexError:
                 print('IndexError: List index out of range')
+                quit()
+
+        elif p[0] == 'len':
+            try:
+                return len(env[run(p[1])])
+            except TypeError:
+                print("TypeError: Object of %s has no len()!" % type(env[run(p[1])]))
                 quit()
 
         elif p[0] == 'unary':

@@ -3,8 +3,11 @@ import ply.lex as lex
 
 # Reserved words for netflux
 reserved = {
+    'length': 'LEN',
+
     'while': 'WHILE',
     'stop': 'STOP',
+
     'if' : 'IF',
     'else' : 'ELSE',
     'end': 'END',
@@ -110,7 +113,7 @@ def t_STRING(t):
     return t
 
 def t_error(t):
-    print('SyntaxError: illegal characters')
+    print("SyntaxError: Illegal characters in '%s' found!" % t.value)
     t.lexer.skip(1)
 
 # Create a lexer
