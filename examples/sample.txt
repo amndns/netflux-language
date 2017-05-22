@@ -1,39 +1,15 @@
-print "FIRST LINE".
-if (1 == 1)
-
-  a = 1.
-  print a.
-
-  if (a > 1)
-
-    if (a == 1)
-      print "SANITY CHECK1".
+a = [5,4,3,2,1].
+i = 0.
+while (i < 4)
+  j = 0.
+  while (j < 4)
+    if (a[j] > a[j+1])
+      temp = a[j].
+      a[j] = a[j+1].
+      a[j+1] = temp.
     end
-    print "HELLO".
-
-  else
-
-    if (a == 1)
-
-      if (a > 1)
-        print "SANITY CHECK2".
-        c = "THIS IS THE VALUE OF C".
-        d = -1-1.
-        b = [1,"THIS IS ME",3, c, d].
-        print b[a+3].
-        b[a+3] = read("hello.txt").
-        print b.
-      else
-        print "LMAO".
-      end
-
-      print "HELLO WORLD".
-      print a + 1.
-
-    end
+    j = j + 1.
   end
-
+  i = i + 1.
 end
-
-print "LAST".
-print "LINE".
+print a.

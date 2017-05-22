@@ -69,6 +69,12 @@ def p_ifstatement_else(p):
     '''
     p[0] = ('if-else', p[3], p[5], p[7])
 
+def p_while_loop(p):
+    '''
+    block : WHILE LPAREN expression RPAREN blocks END
+    '''
+    p[0] = ('while-loop', p[3], p[5])
+
 
 def p_var_assign(p):
     '''
@@ -333,6 +339,11 @@ def run(p):
                 return run(p[2])
             else:
                 return run(p[3])
+
+        elif p[0] == 'while-loop':
+            while run(p[1]):
+                run(p[2])
+            return
 
     elif type(p) == list:
         # print(p)
