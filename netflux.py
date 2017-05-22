@@ -10,11 +10,11 @@ except IndexError:
     print("You forgot to input the file containing your code!")
     print("Type:\tpython3 run.py <filename.txt>")
 
-temp = ""
+string = ""
 for line in f:
     try:
-        temp += line.rstrip()
-        temp += " "
+        string += line.rstrip()
+        string += " "
     except EOFError:
         break
-parser.parse(temp)
+parser.parse(string)

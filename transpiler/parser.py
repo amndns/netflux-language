@@ -55,28 +55,13 @@ def p_ifstatement(p):
     '''
     if_statement : IF LPAREN expression RPAREN blocks END
     '''
-    if (run(p[3])):
-        p[0] = p[5]
-    else:
-        p[0] = None
+    p[0] = ('if', p[3], p[5])
 
 def p_ifstatement_else(p):
     '''
     if_statement : IF LPAREN expression RPAREN blocks ELSE blocks END
     '''
-    if (run(p[3])):
-        p[0] = p[5]
-    else:
-        p[0] = p[7]
-
-# def p_ifstatement_else_if(p):
-#     '''
-#     if_statement : IF LPAREN expression RPAREN blocks ELSE if_statement
-#     '''
-#     if (run(p[3])):
-#         p[0] = p[5]
-#     else:
-#         p[0] = p[7]
+    p[0] = ('if-else', p[3], p[5], p[7])
 
 
 def p_var_assign(p):
@@ -225,7 +210,13 @@ def p_error(p):
 parser = yacc.yacc()
 env = {}
 
+def run_if(p):
+    for i in p:
+        run(i)
+    return
+
 def run(p):
+    # print(p)
     global env
     if type(p) == tuple:
 
@@ -322,6 +313,18 @@ def run(p):
             target.close
             return True
 
+        elif p[0] == 'if':
+            if run(p[1]):
+                return run(p[2])
+            else:
+                return None
+
+        elif p[0] == 'if-else':
+            if run(p[1]):
+                return run(p[2])
+            else:
+                return run(p[3])
+
     elif type(p) == list:
         # print(p)
         try:
@@ -331,7 +334,7 @@ def run(p):
                 return
             else:
                 return p
-        except (IndexError, TypeError) as e:
+        except (IndexError, TypeError, KeyError) as e:
             return p
 
     else:
