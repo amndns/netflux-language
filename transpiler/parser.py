@@ -44,7 +44,10 @@ def p_block(p):
           | if_statement
           |
     '''
-    p[0] = p[1]
+    try:
+        p[0] = p[1]
+    except IndexError:
+        p[0] = None
 
 
 def p_print_block(p):

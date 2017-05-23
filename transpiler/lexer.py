@@ -78,7 +78,8 @@ t_GTE = r'\>\='
 t_LT = r'\<'
 t_LTE = r'\<\='
 
-# Ignore white-space tokens
+# Ignore white-space tokens and comments
+t_ignore_COMMENTS = r'//.+//'
 t_ignore = r' '
 
 # Data Types for netflux

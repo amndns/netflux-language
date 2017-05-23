@@ -1,4 +1,19 @@
 
-a = [1,2,3].
-a = eval(12345).
+a = [31,321,321,31,23,12,3,12,3,3021,310213,-21312].
+print length(a).
+i = 0.
+while (i < length(a)-1)
+  j = 0.
+  while (j < length(a)-1)
+    //print a[j].//
+    if (a[j] > a[j+1])
+      temp = a[j].
+      a[j] = a[j+1].
+      a[j+1] = temp.
+    end
+    j = j + 1.
+  end
+  i = i + 1.
+end
+
 print a.
