@@ -211,6 +211,8 @@ def p_list_enqueue(p):
 def p_list_string_length(p):
     '''
     expression : LEN LPAREN NAME RPAREN
+               | LEN LPAREN STRING RPAREN
+               | LEN LPAREN read RPAREN
     '''
     p[0] = ('len', p[3])
 
@@ -225,8 +227,8 @@ def p_read(p):
 
 def p_eval(p):
     '''
-    expression : EVAL LPAREN STRING RPAREN
-               | EVAL LPAREN NAME RPAREN
+    expression : EVAL LPAREN NAME RPAREN
+               | EVAL LPAREN STRING RPAREN
                | EVAL LPAREN read RPAREN
     '''
     p[0] = ('eval', p[3])
@@ -328,9 +330,11 @@ def run(p):
 
         elif p[0] == 'len':
             try:
+                if p[1] not in env:
+                    return len(run(p[1]))
                 return len(env[run(p[1])])
             except TypeError:
-                print("TypeError: Object of %s has no len()!" % type(env[run(p[1])]))
+                print("TypeError: Object of %s has no length()!" % type(env[run(p[1])]))
                 quit()
 
         elif p[0] == 'enqueue':
@@ -360,10 +364,12 @@ def run(p):
             try:
                 return eval(run(p[1]))
             except NameError:
-                print('TypeError: eval() arg must be a string of numbers')
-                quit()
+                if p[1] not in env:
+                    print('TypeError: eval() arg must be a string of numbers!')
+                    quit()
+                return eval(env[run(p[1])])
             except TypeError:
-                print('TypeError: eval() arg must be a string object')
+                print('TypeError: eval() arg must be a string object!')
                 quit()
 
         elif p[0] == 'write':

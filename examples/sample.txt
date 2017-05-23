@@ -33,10 +33,16 @@ while (i < 10)
 end
 
 print a.
+
 //
 
+//
 b = [1,2,3].
-a = [1,2,3].
+a = [1,2,eval(read(console))].
 
-enqueue(a,[1,2,3]).
-print a[b[2]].
+
+print a[2] +32831082.
+//
+a = [1,-2].
+print length([1,2]).
+print a[1] +2.
