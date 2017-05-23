@@ -3,6 +3,7 @@ import ply.lex as lex
 
 # Reserved words for netflux
 reserved = {
+    'enqueue' : 'ENQ',
     'length': 'LEN',
 
     'while': 'WHILE',

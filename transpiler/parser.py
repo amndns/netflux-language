@@ -198,6 +198,16 @@ def p_list_access_assign(p):
     '''
     p[0] = ('access_assign', p[1], p[3], p[6])
 
+
+def p_list_enqueue(p):
+    '''
+    expression : ENQ LPAREN NAME COMMA expression RPAREN
+               | ENQ LPAREN NAME COMMA STRING RPAREN
+               | ENQ LPAREN NAME COMMA read RPAREN
+    '''
+    p[0] = ('enqueue', p[3], p[5])
+
+
 def p_list_string_length(p):
     '''
     expression : LEN LPAREN NAME RPAREN
@@ -321,6 +331,14 @@ def run(p):
                 return len(env[run(p[1])])
             except TypeError:
                 print("TypeError: Object of %s has no len()!" % type(env[run(p[1])]))
+                quit()
+
+        elif p[0] == 'enqueue':
+            try:
+                env[run(p[1])].append(run(p[2]))
+                return True
+            except AttributeError:
+                print("AttributeError: Object of %s has no enqueue()!" % type(env[run(p[1])]))
                 quit()
 
         elif p[0] == 'unary':

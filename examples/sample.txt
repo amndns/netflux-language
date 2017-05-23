@@ -1,4 +1,4 @@
-
+//
 a = [31,321,321,31,23,12,3,12,3,3021,310213,-21312].
 print length(a).
 i = 0.
@@ -17,3 +17,26 @@ while (i < length(a)-1)
 end
 
 print a.
+//
+
+//
+a = 0.
+b = 1.
+
+i = 0.
+while (i < 10)
+  temp = a.
+  a = b.
+  b = temp + b.
+  i = i + 1.
+  print a.
+end
+
+print a.
+//
+
+b = [1,2,3].
+a = [1,2,3].
+
+enqueue(a,[1,2,3]).
+print a[b[2]].

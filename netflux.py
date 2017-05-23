@@ -11,10 +11,12 @@ except IndexError:
     print("Type:\tpython3 run.py <filename.txt>")
 
 string = ""
+
 for line in f:
     try:
         string += line.rstrip()
         string += " "
     except EOFError:
         break
+
 parser.parse(string)
