@@ -43,6 +43,3 @@ a = [1,2,eval(read(console))].
 
 print a[2] +32831082.
 //
-a = [1,-2].
-print length([1,2]).
-print a[1] +2.
