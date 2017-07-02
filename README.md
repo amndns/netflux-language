@@ -1,2 +1,2 @@
 # netflux-language
-A CS 150 programming language project.
+A simple programming language as a software project.
