@@ -12,11 +12,11 @@ Clone the repository and then navigate to the project folder.
 To run the netflux command-line interpreter:
 
 ```
-python3 interpreter.py
+$ python3 interpreter.py
 ```
 
 To run the interpreter on a file, place your code in a *.txt* file. and run:
 
 ```
-python3 interpreter.py <filename.txt>
+$ python3 interpreter.py <filename.txt>
 ```
