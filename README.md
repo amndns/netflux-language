@@ -2,9 +2,9 @@
 A simple programming language implemented in Python. The official documentation is coming soon.
 
 ## Installation
-Download Python 3 [here](https://www.python.org/downloads/)
+Download Python 3 [here](https://www.python.org/downloads/).
 
-Download PLY [here](https://github.com/dabeaz/ply)
+Download PLY [here](https://github.com/dabeaz/ply).
 
 ## Usage
 Clone the repository and then navigate to the project folder.
